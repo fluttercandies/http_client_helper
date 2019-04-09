@@ -12,22 +12,29 @@ To use this plugin, add `http_client_helper` as a [dependency in your pubspec.ya
 
 ``` dart
   cancellationToken = new CancellationToken();
-    try {
-      await HttpClientHelper.get(url,
-              cancelToken: cancellationToken,
-              millisecondsDelay: 1000,
-              retries: 10)
-          .then((response) {
-        setState(() {
-          msg = response.body;
+      try {
+        await HttpClientHelper.get(url,
+                cancelToken: cancellationToken,
+                timeRetry: Duration(milliseconds: 100),
+                retries: 3,
+                timeLimit: Duration(seconds: 5))
+            .then((response) {
+          setState(() {
+            msg = response.body;
+          });
         });
-      });
-    } on OperationCanceledError catch (e) {
-      setState(() {
-        msg = "cancel";
-      });
-    } catch (e) {
-
-    }
+      } on TimeoutException catch (_) {
+        setState(() {
+          msg = "TimeoutException";
+        });
+      } on OperationCanceledError catch (_) {
+        setState(() {
+          msg = "cancel";
+        });
+      } catch (e) {
+        setState(() {
+          msg = "$e";
+        });
+      }
 ```
 Please see the example app of this plugin for a full example.

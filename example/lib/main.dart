@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http_client_helper/http_client_helper.dart';
+import 'dart:async';
 
 void main() => runApp(MyApp());
 
@@ -63,11 +64,16 @@ class _MyHomePageState extends State<MyHomePage> {
       await HttpClientHelper.get(url,
               cancelToken: cancellationToken,
               timeRetry: Duration(milliseconds: 1000),
-              retries: 10)
+              retries: 10,
+              timeLimit: Duration(seconds: 5))
           .then((response) {
         setState(() {
           msg = response.body;
         });
+      });
+    } on TimeoutException catch (_) {
+      setState(() {
+        msg = "TimeoutException";
       });
     } on OperationCanceledError catch (_) {
       setState(() {

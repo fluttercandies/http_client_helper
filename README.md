@@ -30,24 +30,4 @@ To use this plugin, add `http_client_helper` as a [dependency in your pubspec.ya
 
     }
 ```
-
-If you need other method of http, you can do it with RetryHelper and CancellationToken as you wish.
-as follow
-``` dart
-static Future<Response> get(url,
-      {Map<String, String> headers,
-      CancellationToken cancelToken,
-      int millisecondsDelay = 100,
-      int retries = 3}) async {
-    cancelToken?.throwIfCancellationRequested();
-    return await RetryHelper.tryRun<Response>(() {
-      return CancellationTokenSource.register(
-          cancelToken, _httpClient.get(url, headers: headers));
-    },
-        cancelToken: cancelToken,
-        millisecondsDelay: millisecondsDelay,
-        retries: retries);
-  }
-``` 
-
 Please see the example app of this plugin for a full example.

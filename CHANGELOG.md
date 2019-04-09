@@ -1,3 +1,7 @@
+## [0.1.8]
+
+* add other method of http
+
 ## [0.1.7]
 
 * add timeLimit for timeout

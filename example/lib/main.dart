@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
           msg = response.body;
         });
       });
-    } on OperationCanceledError catch (e) {
+    } on OperationCanceledError catch (_) {
       setState(() {
         msg = "cancel";
       });

@@ -1,3 +1,7 @@
+## [0.1.9]
+
+* add OnTimeout onTimeout parameter for all method
+
 ## [0.1.8]
 
 * add other method of http

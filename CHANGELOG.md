@@ -1,4 +1,4 @@
-## [0.1.9]
+## [0.2.0]
 
 * add OnTimeout onTimeout parameter for all method
 

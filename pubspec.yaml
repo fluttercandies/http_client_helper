@@ -1,7 +1,7 @@
 name: http_client_helper
 description: A Flutter plugin for http request with cancel and retry fuctions.
-version: 0.1.9
-author: zmtzapxh <zmtzapxhlp@live.com>
+version: 0.2.0
+author: zmtzawq <zmtzawqlp@live.com>
 homepage:  https://github.com/fluttercandies/http_client_helper
 
 environment:

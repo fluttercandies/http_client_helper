@@ -7,7 +7,11 @@ import 'package:http_client_helper/src/cancellation_token.dart';
 import 'package:http_client_helper/src/retry_helper.dart';
 
 class HttpClientHelper {
-  static Client _httpClient = new Client();
+  static Client _httpClient = Client();
+  static Client get httpClient => _httpClient;
+  void set(Client value) {
+    _httpClient = value;
+  }
 
   //http get with cancel, delay try again
   static Future<Response> get(url,

@@ -1,3 +1,9 @@
+## [0.2.1]
+
+* public HttpClientHelper.httpClient, so that you can new client base on your case.
+  dart:io =>IOClient
+  dart:html=>BrowserClient
+
 ## [0.2.0]
 
 * add OnTimeout onTimeout parameter for all method

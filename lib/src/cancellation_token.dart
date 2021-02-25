@@ -1,33 +1,31 @@
 import 'dart:async';
 
-//Cancellation token to cancel future in dart
+/// Cancellation token to cancel future in dart
 class CancellationToken {
-  /// list to store complter future
-  var _completers = new List<Completer>();
+  /// list to store completer future
+  List<Completer> _completers = <Completer>[];
 
-  ///cancel error
-  OperationCanceledError _cancelError;
+  /// cancel error
+  OperationCanceledError? _cancelError;
 
   /// whether has canceled
-  bool get isCanceled {
-    return _cancelError != null;
-  }
+  bool get isCanceled => _cancelError != null;
 
   /// if request have been canceled, save the cancel Error.
-  OperationCanceledError get cancelError => _cancelError;
+  OperationCanceledError? get cancelError => _cancelError;
 
   /// cancel operation
-  void cancel([String msg]) {
-    _cancelError = new OperationCanceledError(msg ?? "cancel this token");
+  void cancel([String? msg]) {
+    _cancelError = OperationCanceledError(msg ?? "cancel this token");
     if (_completers.isNotEmpty) {
-      _completers.forEach((e) => e.completeError(cancelError));
+      _completers.forEach((e) => e.completeError(cancelError!));
     }
   }
 
   /// add a [completer] to this token
   void _addCompleter(Completer completer) {
     if (isCanceled) {
-      completer?.completeError(_cancelError);
+      completer.completeError(_cancelError!);
       _completers.remove(completer);
     } else {
       if (!_completers.contains(completer)) {
@@ -41,7 +39,7 @@ class CancellationToken {
     _completers.remove(completer);
   }
 
-  //check whether it has canceled, yes ,throw
+  /// check whether it has canceled, yes ,throw
   void throwIfCancellationRequested() {
     if (isCanceled) {
       throw OperationCanceledError("this token has aleady canceled");
@@ -50,13 +48,16 @@ class CancellationToken {
 }
 
 class OperationCanceledError extends Error {
-  final String msg;
   OperationCanceledError(this.msg);
+
+  final String msg;
 }
 
 class CancellationTokenSource {
   static Future<T> register<T>(
-      CancellationToken cancelToken, Future<T> future) {
+    CancellationToken? cancelToken,
+    Future<T> future,
+  ) {
     if (cancelToken != null && !cancelToken.isCanceled) {
       Completer completer = new Completer();
       cancelToken._addCompleter(completer);

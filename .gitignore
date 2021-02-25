@@ -1,5 +1,6 @@
 .DS_Store
 .dart_tool/
+*.iml
 
 .packages
 .pub/
@@ -8,3 +9,5 @@ build/
 ios/.generated/
 ios/Flutter/Generated.xcconfig
 ios/Runner/GeneratedPluginRegistrant.*
+
+pubspec.lock

@@ -28,7 +28,7 @@ class HttpClientHelper {
     OnTimeout<Response>? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    return await RetryHelper.tryRun<Response?>(
+    return await RetryHelper.tryRun<Response>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
@@ -58,7 +58,7 @@ class HttpClientHelper {
     OnTimeout<Response>? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    return await RetryHelper.tryRun<Response?>(
+    return await RetryHelper.tryRun<Response>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
@@ -91,7 +91,7 @@ class HttpClientHelper {
     OnTimeout<Response>? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    return await RetryHelper.tryRun<Response?>(
+    return await RetryHelper.tryRun<Response>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
@@ -121,7 +121,7 @@ class HttpClientHelper {
     OnTimeout<Response>? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    return await RetryHelper.tryRun<Response?>(
+    return await RetryHelper.tryRun<Response>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
@@ -156,7 +156,7 @@ class HttpClientHelper {
     OnTimeout<Response>? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    return await RetryHelper.tryRun<Response?>(
+    return await RetryHelper.tryRun<Response>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
@@ -189,7 +189,7 @@ class HttpClientHelper {
     OnTimeout<Response>? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    return await RetryHelper.tryRun<Response?>(
+    return await RetryHelper.tryRun<Response>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
@@ -217,7 +217,7 @@ class HttpClientHelper {
     OnTimeout<String>? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    return await RetryHelper.tryRun<String?>(
+    return await RetryHelper.tryRun<String>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
@@ -272,7 +272,7 @@ class HttpClientHelper {
     OnTimeout<StreamedResponse>? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    return await RetryHelper.tryRun<StreamedResponse?>(
+    return await RetryHelper.tryRun<StreamedResponse>(
       () {
         return CancellationTokenSource.register(
           cancelToken,

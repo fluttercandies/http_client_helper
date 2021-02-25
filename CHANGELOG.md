@@ -1,4 +1,4 @@
-## 0.3.0
+## 0.3.1
 
 * Migrate to non-nullable by default.
 

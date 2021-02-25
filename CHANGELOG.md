@@ -1,3 +1,7 @@
+## 0.3.0
+
+* Migrate to non-nullable by default.
+
 ## 0.2.1
 
 * public HttpClientHelper.httpClient, so that you can new client base on your case.

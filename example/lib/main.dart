@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:http_client_helper/http_client_helper.dart';
-import 'dart:async';
 
 void main() => runApp(MyApp());
 

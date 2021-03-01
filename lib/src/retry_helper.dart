@@ -15,11 +15,12 @@ class RetryHelper {
       //print("try at ${attempts} times");
       try {
         return await asyncFunc();
+        // ignore: unused_catch_clause
       } on OperationCanceledError catch (error) {
-        throw error;
+        rethrow;
       } catch (error) {
         if (throwThenExpction != null && throwThenExpction()) {
-          throw error;
+          rethrow;
         }
         //twice time to retry
         //if (attempts > 1) millisecondsDelay *= 2;
@@ -27,8 +28,8 @@ class RetryHelper {
       //delay to retry
       //try {
       if (attempts < retries && timeRetry != null) {
-        var future = CancellationTokenSource.register(
-            cancelToken, Future.delayed(timeRetry));
+        final Future<T> future = CancellationTokenSource.register(
+            cancelToken, Future<T>.delayed(timeRetry));
         await future;
       }
 

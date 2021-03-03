@@ -1,3 +1,6 @@
+## 2.0.0-non-null-safety
+
+* non-null-safety
 ## 1.0.0
 
 * add analysis_options.yaml

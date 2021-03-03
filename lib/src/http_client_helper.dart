@@ -15,7 +15,7 @@ class HttpClientHelper {
 
   //http get with cancel, delay try again
   static Future<Response> get(
-    Uri url, {
+    String url, {
     Map<String, String> headers,
     CancellationToken cancelToken,
     int retries = 3,
@@ -52,7 +52,7 @@ class HttpClientHelper {
 
   //http post with cancel, delay try again
   static Future<Response> post(
-    Uri url, {
+    String url, {
     Map<String, String> headers,
     Object body,
     Encoding encoding,
@@ -95,7 +95,7 @@ class HttpClientHelper {
 
   //http head with cancel, delay try again
   static Future<Response> head(
-    Uri url, {
+    String url, {
     Map<String, String> headers,
     CancellationToken cancelToken,
     int retries = 3,
@@ -132,7 +132,7 @@ class HttpClientHelper {
 
   //http put with cancel, delay try again
   static Future<Response> put(
-    Uri url, {
+    String url, {
     Map<String, String> headers,
     Object body,
     Encoding encoding,
@@ -170,7 +170,7 @@ class HttpClientHelper {
 
   //http patch with cancel, delay try again
   static Future<Response> patch(
-    Uri url, {
+    String url, {
     Map<String, String> headers,
     Object body,
     Encoding encoding,
@@ -213,7 +213,7 @@ class HttpClientHelper {
 
   //http delete with cancel, delay try again
   static Future<Response> delete(
-    Uri url, {
+    String url, {
     Map<String, String> headers,
     CancellationToken cancelToken,
     int retries = 3,
@@ -250,7 +250,7 @@ class HttpClientHelper {
 
   //http read with cancel, delay try again
   static Future<String> read(
-    Uri url, {
+    String url, {
     Map<String, String> headers,
     CancellationToken cancelToken,
     int retries = 3,
@@ -286,7 +286,7 @@ class HttpClientHelper {
   }
 
   //http readBytes with cancel, delay try again
-  static Future<Uint8List> readBytes(Uri url,
+  static Future<Uint8List> readBytes(String url,
       {Map<String, String> headers,
       CancellationToken cancelToken,
       int retries = 3,

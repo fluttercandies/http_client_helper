@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String msg = '';
 
   Future<void> request() async {
-    final Uri url = Uri.parse('https://api.tuchong.com/feed-app');
+    const String url = 'https://api.tuchong.com/feed-app';
     //url = 'https://google.com';
     setState(() {
       msg = 'begin request';

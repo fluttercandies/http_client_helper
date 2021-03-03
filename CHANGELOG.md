@@ -1,7 +1,10 @@
-## 0.3.2
+## 2.0.0
 
-* Migrate to non-nullable by default.
+* support null-safety
+  
+## 1.0.0
 
+* add analysis_options.yaml
 ## 0.2.1
 
 * public HttpClientHelper.httpClient, so that you can new client base on your case.

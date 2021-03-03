@@ -6,38 +6,42 @@ import 'package:http/http.dart';
 import 'package:http_client_helper/src/cancellation_token.dart';
 import 'package:http_client_helper/src/retry_helper.dart';
 
-typedef OnTimeout<T> = FutureOr<T> Function();
-
 class HttpClientHelper {
   static Client _httpClient = Client();
-
   static Client get httpClient => _httpClient;
-
   void set(Client value) {
     _httpClient = value;
   }
 
-  // http get with cancel, delay try again
+  //http get with cancel, delay try again
   static Future<Response?> get(
-    String url, {
+    Uri url, {
     Map<String, String>? headers,
     CancellationToken? cancelToken,
     int retries = 3,
     Duration? timeLimit,
     Duration timeRetry = const Duration(milliseconds: 100),
-    OnTimeout<Response>? onTimeout,
+    FutureOr<Response> Function()? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    final Uri uri = Uri.parse(url);
     return await RetryHelper.tryRun<Response>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
           timeLimit == null
-              ? _httpClient.get(uri, headers: headers)
+              ? _httpClient.get(
+                  url,
+                  headers: headers,
+                )
               : _httpClient
-                  .get(uri, headers: headers)
-                  .timeout(timeLimit, onTimeout: onTimeout),
+                  .get(
+                    url,
+                    headers: headers,
+                  )
+                  .timeout(
+                    timeLimit,
+                    onTimeout: onTimeout,
+                  ),
         );
       },
       cancelToken: cancelToken,
@@ -46,34 +50,41 @@ class HttpClientHelper {
     );
   }
 
-  // http post with cancel, delay try again
+  //http post with cancel, delay try again
   static Future<Response?> post(
-    String url, {
+    Uri url, {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
     CancellationToken? cancelToken,
     int retries = 3,
     Duration? timeLimit,
-    Duration? timeRetry = const Duration(milliseconds: 100),
-    OnTimeout<Response>? onTimeout,
+    Duration timeRetry = const Duration(milliseconds: 100),
+    FutureOr<Response> Function()? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    final Uri uri = Uri.parse(url);
     return await RetryHelper.tryRun<Response>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
           timeLimit == null
               ? _httpClient.post(
-                  uri,
+                  url,
                   headers: headers,
                   body: body,
                   encoding: encoding,
                 )
               : _httpClient
-                  .post(uri, headers: headers, body: body, encoding: encoding)
-                  .timeout(timeLimit, onTimeout: onTimeout),
+                  .post(
+                    url,
+                    headers: headers,
+                    body: body,
+                    encoding: encoding,
+                  )
+                  .timeout(
+                    timeLimit,
+                    onTimeout: onTimeout,
+                  ),
         );
       },
       cancelToken: cancelToken,
@@ -82,27 +93,35 @@ class HttpClientHelper {
     );
   }
 
-  // http head with cancel, delay try again
+  //http head with cancel, delay try again
   static Future<Response?> head(
-    String url, {
+    Uri url, {
     Map<String, String>? headers,
     CancellationToken? cancelToken,
     int retries = 3,
     Duration? timeLimit,
-    Duration? timeRetry = const Duration(milliseconds: 100),
-    OnTimeout<Response>? onTimeout,
+    Duration timeRetry = const Duration(milliseconds: 100),
+    FutureOr<Response> Function()? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    final Uri uri = Uri.parse(url);
     return await RetryHelper.tryRun<Response>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
           timeLimit == null
-              ? _httpClient.head(uri, headers: headers)
+              ? _httpClient.head(
+                  url,
+                  headers: headers,
+                )
               : _httpClient
-                  .head(uri, headers: headers)
-                  .timeout(timeLimit, onTimeout: onTimeout),
+                  .head(
+                    url,
+                    headers: headers,
+                  )
+                  .timeout(
+                    timeLimit,
+                    onTimeout: onTimeout,
+                  ),
         );
       },
       cancelToken: cancelToken,
@@ -111,70 +130,79 @@ class HttpClientHelper {
     );
   }
 
-  // http put with cancel, delay try again
+  //http put with cancel, delay try again
   static Future<Response?> put(
-    String url, {
+    Uri url, {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
     CancellationToken? cancelToken,
     int retries = 3,
     Duration? timeLimit,
-    Duration? timeRetry = const Duration(milliseconds: 100),
-    OnTimeout<Response>? onTimeout,
+    Duration timeRetry = const Duration(milliseconds: 100),
+    FutureOr<Response> Function()? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    final Uri uri = Uri.parse(url);
-    return await RetryHelper.tryRun<Response>(
-      () {
-        return CancellationTokenSource.register(
-          cancelToken,
-          timeLimit == null
-              ? _httpClient.put(
-                  uri,
+    return await RetryHelper.tryRun<Response>(() {
+      return CancellationTokenSource.register(
+        cancelToken,
+        timeLimit == null
+            ? _httpClient.put(
+                url,
+                headers: headers,
+                body: body,
+                encoding: encoding,
+              )
+            : _httpClient
+                .put(
+                  url,
                   headers: headers,
                   body: body,
                   encoding: encoding,
                 )
-              : _httpClient
-                  .put(uri, headers: headers, body: body, encoding: encoding)
-                  .timeout(timeLimit, onTimeout: onTimeout),
-        );
-      },
-      cancelToken: cancelToken,
-      timeRetry: timeRetry,
-      retries: retries,
-    );
+                .timeout(
+                  timeLimit,
+                  onTimeout: onTimeout,
+                ),
+      );
+    }, cancelToken: cancelToken, timeRetry: timeRetry, retries: retries);
   }
 
-  // http patch with cancel, delay try again
+  //http patch with cancel, delay try again
   static Future<Response?> patch(
-    String url, {
+    Uri url, {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
     CancellationToken? cancelToken,
     int retries = 3,
     Duration? timeLimit,
-    Duration? timeRetry = const Duration(milliseconds: 100),
-    OnTimeout<Response>? onTimeout,
+    Duration timeRetry = const Duration(milliseconds: 100),
+    FutureOr<Response> Function()? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    final Uri uri = Uri.parse(url);
     return await RetryHelper.tryRun<Response>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
           timeLimit == null
               ? _httpClient.patch(
-                  uri,
+                  url,
                   headers: headers,
                   body: body,
                   encoding: encoding,
                 )
               : _httpClient
-                  .patch(uri, headers: headers, body: body, encoding: encoding)
-                  .timeout(timeLimit, onTimeout: onTimeout),
+                  .patch(
+                    url,
+                    headers: headers,
+                    body: body,
+                    encoding: encoding,
+                  )
+                  .timeout(
+                    timeLimit,
+                    onTimeout: onTimeout,
+                  ),
         );
       },
       cancelToken: cancelToken,
@@ -183,27 +211,35 @@ class HttpClientHelper {
     );
   }
 
-  // http delete with cancel, delay try again
+  //http delete with cancel, delay try again
   static Future<Response?> delete(
-    String url, {
+    Uri url, {
     Map<String, String>? headers,
     CancellationToken? cancelToken,
     int retries = 3,
     Duration? timeLimit,
-    Duration? timeRetry = const Duration(milliseconds: 100),
-    OnTimeout<Response>? onTimeout,
+    Duration timeRetry = const Duration(milliseconds: 100),
+    FutureOr<Response> Function()? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    final Uri uri = Uri.parse(url);
     return await RetryHelper.tryRun<Response>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
           timeLimit == null
-              ? _httpClient.delete(uri, headers: headers)
+              ? _httpClient.delete(
+                  url,
+                  headers: headers,
+                )
               : _httpClient
-                  .delete(uri, headers: headers)
-                  .timeout(timeLimit, onTimeout: onTimeout),
+                  .delete(
+                    url,
+                    headers: headers,
+                  )
+                  .timeout(
+                    timeLimit,
+                    onTimeout: onTimeout,
+                  ),
         );
       },
       cancelToken: cancelToken,
@@ -212,27 +248,35 @@ class HttpClientHelper {
     );
   }
 
-  // http read with cancel, delay try again
+  //http read with cancel, delay try again
   static Future<String?> read(
-    String url, {
+    Uri url, {
     Map<String, String>? headers,
     CancellationToken? cancelToken,
     int retries = 3,
     Duration? timeLimit,
-    Duration? timeRetry = const Duration(milliseconds: 100),
-    OnTimeout<String>? onTimeout,
+    Duration timeRetry = const Duration(milliseconds: 100),
+    FutureOr<String> Function()? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
-    final Uri uri = Uri.parse(url);
     return await RetryHelper.tryRun<String>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
           timeLimit == null
-              ? _httpClient.read(uri, headers: headers)
+              ? _httpClient.read(
+                  url,
+                  headers: headers,
+                )
               : _httpClient
-                  .read(uri, headers: headers)
-                  .timeout(timeLimit, onTimeout: onTimeout),
+                  .read(
+                    url,
+                    headers: headers,
+                  )
+                  .timeout(
+                    timeLimit,
+                    onTimeout: onTimeout,
+                  ),
         );
       },
       cancelToken: cancelToken,
@@ -241,27 +285,33 @@ class HttpClientHelper {
     );
   }
 
-  // http readBytes with cancel, delay try again
-  static Future<Uint8List?> readBytes(
-    String url, {
-    Map<String, String>? headers,
-    CancellationToken? cancelToken,
-    int retries = 3,
-    Duration? timeLimit,
-    Duration? timeRetry = const Duration(milliseconds: 100),
-    OnTimeout<Uint8List>? onTimeout,
-  }) async {
+  //http readBytes with cancel, delay try again
+  static Future<Uint8List?> readBytes(Uri url,
+      {Map<String, String>? headers,
+      CancellationToken? cancelToken,
+      int retries = 3,
+      Duration? timeLimit,
+      Duration timeRetry = const Duration(milliseconds: 100),
+      FutureOr<Uint8List> Function()? onTimeout}) async {
     cancelToken?.throwIfCancellationRequested();
-    final Uri uri = Uri.parse(url);
     return await RetryHelper.tryRun<Uint8List>(
       () {
         return CancellationTokenSource.register(
           cancelToken,
           timeLimit == null
-              ? _httpClient.readBytes(uri, headers: headers)
+              ? _httpClient.readBytes(
+                  url,
+                  headers: headers,
+                )
               : _httpClient
-                  .readBytes(uri, headers: headers)
-                  .timeout(timeLimit, onTimeout: onTimeout),
+                  .readBytes(
+                    url,
+                    headers: headers,
+                  )
+                  .timeout(
+                    timeLimit,
+                    onTimeout: onTimeout,
+                  ),
         );
       },
       cancelToken: cancelToken,
@@ -270,14 +320,14 @@ class HttpClientHelper {
     );
   }
 
-  // http send with cancel, delay try again
+  //http send with cancel, delay try again
   static Future<StreamedResponse?> send(
     BaseRequest request, {
     CancellationToken? cancelToken,
     int retries = 3,
     Duration? timeLimit,
     Duration timeRetry = const Duration(milliseconds: 100),
-    OnTimeout<StreamedResponse>? onTimeout,
+    FutureOr<StreamedResponse> Function()? onTimeout,
   }) async {
     cancelToken?.throwIfCancellationRequested();
     return await RetryHelper.tryRun<StreamedResponse>(
@@ -286,9 +336,10 @@ class HttpClientHelper {
           cancelToken,
           timeLimit == null
               ? _httpClient.send(request)
-              : _httpClient
-                  .send(request)
-                  .timeout(timeLimit, onTimeout: onTimeout),
+              : _httpClient.send(request).timeout(
+                    timeLimit,
+                    onTimeout: onTimeout,
+                  ),
         );
       },
       cancelToken: cancelToken,
@@ -297,6 +348,8 @@ class HttpClientHelper {
     );
   }
 
-  // http close
-  static void close() => _httpClient.close();
+  //http close
+  static void close() {
+    _httpClient.close();
+  }
 }

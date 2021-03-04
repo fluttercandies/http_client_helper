@@ -1,3 +1,7 @@
+## 2.0.1-non-null-safety
+
+* Fix error that nvalid argument (onError)
+  
 ## 2.0.0-non-null-safety
 
 * non-null-safety

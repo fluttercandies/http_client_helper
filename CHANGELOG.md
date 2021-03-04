@@ -1,3 +1,7 @@
+## 2.0.1
+
+* Fix error that nvalid argument (onError)
+  
 ## 2.0.0
 
 * support null-safety

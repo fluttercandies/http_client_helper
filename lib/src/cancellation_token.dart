@@ -66,7 +66,7 @@ class CancellationTokenSource {
           .then<T>((T result) async {
         cancelToken._removeCompleter(completer);
         return result;
-      }).catchError(() {
+      }).catchError((Object error) {
         cancelToken._removeCompleter(completer);
       });
     } else {

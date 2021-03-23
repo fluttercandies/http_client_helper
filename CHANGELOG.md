@@ -1,3 +1,6 @@
+## 2.0.2
+
+* Fix error that the type parameter should not nullable at Future.delayed
 ## 2.0.1
 
 * Fix error that nvalid argument (onError)

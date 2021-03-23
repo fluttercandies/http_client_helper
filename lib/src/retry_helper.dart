@@ -28,8 +28,8 @@ class RetryHelper {
       //delay to retry
       //try {
       if (attempts < retries) {
-        final Future<T> future = CancellationTokenSource.register(
-            cancelToken, Future<T>.delayed(timeRetry));
+        final Future<void> future = CancellationTokenSource.register(
+            cancelToken, Future<void>.delayed(timeRetry, () {}));
         await future;
       }
 

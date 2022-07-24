@@ -57,6 +57,7 @@ class OperationCanceledError extends Error {
 }
 
 class CancellationTokenSource {
+  CancellationTokenSource._();
   static Future<T> register<T>(
       CancellationToken? cancelToken, Future<T> future) {
     if (cancelToken != null && !cancelToken.isCanceled) {
@@ -68,6 +69,7 @@ class CancellationTokenSource {
         return result;
       }).catchError((Object error) {
         cancelToken._removeCompleter(completer);
+        throw error;
       });
     } else {
       return future;

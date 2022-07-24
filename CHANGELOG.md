@@ -1,3 +1,7 @@
+## 2.0.3
+
+* Fix cancel token not working #6
+
 ## 2.0.2
 
 * Fix error that the type parameter should not nullable at Future.delayed

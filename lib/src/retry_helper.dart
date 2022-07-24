@@ -1,6 +1,7 @@
 import 'package:http_client_helper/src/cancellation_token.dart';
 
 class RetryHelper {
+  RetryHelper._();
   //try again，after millisecondsDelay time
   static Future<T?> tryRun<T>(
     Future<T> Function() asyncFunc, {

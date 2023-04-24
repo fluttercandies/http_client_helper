@@ -1,3 +1,7 @@
+## 2.0.4
+
+* Add static setter for httpClient #4
+
 ## 2.0.3
 
 * Fix cancel token not working #6

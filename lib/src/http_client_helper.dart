@@ -13,6 +13,10 @@ class HttpClientHelper {
     _httpClient = value;
   }
 
+  static void setClient(Client client) {
+    _httpClient = client;
+  }
+
   //http get with cancel, delay try again
   static Future<Response?> get(
     Uri url, {

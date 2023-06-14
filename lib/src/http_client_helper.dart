@@ -7,9 +7,10 @@ import 'package:http_client_helper/src/cancellation_token.dart';
 import 'package:http_client_helper/src/retry_helper.dart';
 
 class HttpClientHelper {
+  HttpClientHelper._();
   static Client _httpClient = Client();
   static Client get httpClient => _httpClient;
-  void set(Client value) {
+  static void set(Client value) {
     _httpClient = value;
   }
 

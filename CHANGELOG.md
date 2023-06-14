@@ -1,3 +1,7 @@
+## 3.0.0
+
+* upgrade http to 1.0.0
+
 ## 2.0.4
 
 * Add static setter for httpClient #4
